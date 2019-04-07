@@ -6,8 +6,7 @@ ShaderProgram::ShaderProgram(){
     this->shaderProgramObject = glCreateProgram();
 }
 
-ShaderProgram::ShaderProgram(Shader shader, bool deleteOnSuccess){
-    ShaderProgram();
+ShaderProgram::ShaderProgram(Shader shader, bool deleteOnSuccess):ShaderProgram(){
     glAttachShader(this->shaderProgramObject, shader.getShaderObject());
     this->linkShaderProgram();
     if(deleteOnSuccess)
@@ -15,8 +14,7 @@ ShaderProgram::ShaderProgram(Shader shader, bool deleteOnSuccess){
 }
 
 
-ShaderProgram::ShaderProgram(std::vector<Shader> shaderVector, bool deleteOnSuccess){
-    ShaderProgram();
+ShaderProgram::ShaderProgram(std::vector<Shader> shaderVector, bool deleteOnSuccess):ShaderProgram(){
     for(std::vector<Shader>::iterator shaderItr = shaderVector.begin(); shaderItr != shaderVector.end(); shaderItr++){
         glAttachShader(this->shaderProgramObject, shaderItr->getShaderObject());
     }
@@ -27,8 +25,8 @@ ShaderProgram::ShaderProgram(std::vector<Shader> shaderVector, bool deleteOnSucc
     }   
 }
 
-ShaderProgram::ShaderProgram(std::initializer_list<Shader> shaderList, bool deleteOnSuccess){
-    ShaderProgram(std::vector<Shader>(shaderList.begin(), shaderList.end()), deleteOnSuccess);
+ShaderProgram::ShaderProgram(std::initializer_list<Shader> shaderList, bool deleteOnSuccess):
+    ShaderProgram(std::vector<Shader>(shaderList.begin(), shaderList.end()), deleteOnSuccess){
 }
 
 void ShaderProgram::linkShaderProgram(){
